@@ -24,4 +24,4 @@ methods:
   update => updates the row -> PATCH OR PUT
 */
 
-** last state -> npm run dev (proxies error) -> probably user controller/router err -> check userController/userRoutes && before that chenges **
+LAST STATE: CRUD FOR USER COMPLETE -> TODO THE JWT FOR THE CREATION/ AUTHENTICATION
