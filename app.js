@@ -1,5 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import dotevn from 'dotenv';
+
+dotevn.config();
+
+import './src/database';
 import express from 'express';
-import homeroutes from './src/routes/homeR';
+import homeRoutes from './src/routes/homeR';
+import userRoutes from './src/routes/userRotues';
 
 class App {
   constructor() {
@@ -10,11 +17,12 @@ class App {
 
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.json);
+    this.app.use(express.json());
   }
 
   routes() {
-    this.app.use('/', homeroutes);
+    this.app.use('/', homeRoutes);
+    this.app.use('/users/', userRoutes);
   }
 }
 
