@@ -6,7 +6,7 @@ dotevn.config();
 import './src/database';
 import express from 'express';
 import homeRoutes from './src/routes/homeR';
-import userRoutes from './src/routes/userRotues';
+import userRoutes from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
 
 class App {

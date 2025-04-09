@@ -4,20 +4,22 @@ class UserController {
   async create(req, res) {
     try {
       const newUser = await User.create(req.body);
-      return res.json(newUser);
+      const { id, name, email } = newUser;
+      return res.json({ id, name, email });
     } catch (e) {
       return res.status(400).json({
-        erros: e.errors.map((err) => err.message),
+        erros: e.errors?.map((err) => err.message) || [e.message],
       });
     }
   }
 
   async index(req, res) {
     try {
-      return res.status(200).json(await User.findAll());
+      const users = await User.findAll();
+      return res.status(200).json(users);
     } catch (e) {
       return res.status(400).json({
-        erros: e.errors.map((err) => err.message),
+        erros: e.errors?.map((err) => err.message) || [e.message],
       });
     }
   }
@@ -34,13 +36,7 @@ class UserController {
 
   async update(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['Id must be declared'],
-        });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({
@@ -59,21 +55,18 @@ class UserController {
 
   async delete(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['Id cannot be empty'],
-        });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(404).json({
           errors: ['User not found'],
         });
       }
+
       await user.destroy();
-      return res.status(200).json(user);
+      return res.status(200).json({
+        delete: user,
+      });
     } catch (e) {
       return res.status(400).json({
         erros: e.errors.map((err) => err.message),

@@ -37,6 +37,16 @@ export default class User extends Model {
             msg: 'ERR: Field password must have beetween 3 and 50 characters',
           },
         },
+        isAdmin: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
+          field: 'is_admin',
+        },
+        isActive: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: true,
+          field: 'is_active',
+        },
       },
       {
         sequelize,
