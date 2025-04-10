@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
 
 export default class User extends Model {
   static init(sequelize) {
@@ -16,14 +15,33 @@ export default class User extends Model {
             },
           },
         },
+        surname: {
+          type: sequelize.STRING,
+          allowNull: false,
+        },
+
         email: {
           type: Sequelize.STRING,
+          unique: true,
           defaultValue: '',
           isEmail: {
             msg: 'ERR: Invalid email',
           },
         },
+        phone: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        height: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        weight: {
+          type: Sequelize.FLOAT,
+          allowNull: true,
+        },
       },
+
       {
         sequelize,
         tableName: 'securitys',
