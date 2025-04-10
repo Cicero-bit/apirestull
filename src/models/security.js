@@ -16,17 +16,8 @@ export default class User extends Model {
           },
         },
         surname: {
-          type: sequelize.STRING,
-          allowNull: false,
-        },
-
-        email: {
           type: Sequelize.STRING,
-          unique: true,
-          defaultValue: '',
-          isEmail: {
-            msg: 'ERR: Invalid email',
-          },
+          allowNull: false,
         },
         phone: {
           type: Sequelize.STRING,
