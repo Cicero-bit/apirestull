@@ -6,7 +6,7 @@ const random = () => Math.floor(Math.random() * 100000 + 100000);
 export default {
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.resolve(__dirname, '..', '..', 'uploads'));
+      cb(null, path.resolve(__dirname, '..', '..', 'uploads', 'imgs'));
     },
     filename: (req, file, cb) => {
       cb(null, `${Date.now()}_${random()}${path.extname(file.originalname)}`);

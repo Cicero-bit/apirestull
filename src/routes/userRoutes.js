@@ -4,10 +4,10 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-// router.get('/', userController.index); // falha de seguranca
+// router.get('/', userController.index); // let it off
 
 router.post('/', userController.create);
-router.get('/', loginRequired, userController.show); // alterar para id na req
+router.get('/:id', loginRequired, userController.show); // modify the id in the red
 router.put('/', loginRequired, userController.update);
 router.delete('/', loginRequired, userController.delete);
 

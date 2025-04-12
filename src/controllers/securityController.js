@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import Security from '../models/security';
+import Photo from '../models/profilePic';
 
 class SecurityController {
   async create(req, res) {
@@ -20,7 +21,14 @@ class SecurityController {
         erros: ['Id must not be empty'],
       });
     }
-    const security_ = await Security.findByPk(req.params.id);
+    const security_ = await Security.findByPk(req.params.id, {
+      attributes: ['id', 'name', 'surname', 'phone', 'weight', 'height'],
+      order: [['id', 'ASC']],
+      include: {
+        model: Photo,
+        attributes: ['id', 'file_name', 'original_name', 'type', 'url'],
+      },
+    });
     if (!security_) {
       return res.status(404).json({
         erros: ['Security not found'],
@@ -30,7 +38,14 @@ class SecurityController {
   }
 
   async show(req, res) {
-    const securitys = await Security.findAll();
+    const securitys = await Security.findAll({
+      attributes: ['id', 'name', 'surname', 'phone', 'weight', 'height'],
+      order: [['id', 'ASC']],
+      include: {
+        model: Photo,
+        attributes: ['id', 'file_name', 'original_name', 'type', 'url'],
+      },
+    });
     res.status(200).json(securitys);
   }
 

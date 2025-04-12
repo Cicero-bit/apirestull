@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Sequelize, { Model } from 'sequelize';
-
-export default class User extends Model {
+// gross error here wtf
+export default class Security extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -40,5 +40,9 @@ export default class User extends Model {
     );
 
     return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.ProfilePics, { foreignKey: 'security_id' });
   }
 }

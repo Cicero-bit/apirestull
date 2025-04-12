@@ -48,6 +48,7 @@ export default class User extends Model {
           field: 'is_active',
         },
       },
+
       {
         sequelize,
         tableName: 'users',

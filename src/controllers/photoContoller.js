@@ -1,11 +1,14 @@
+/* eslint-disable max-len */
+/* eslint-disable camelcase */
 import multer from 'multer';
 
 import multerConfig from '../config/multerConfig';
+import Photo from '../models/profilePic';
 
 const uploadFile = multer({
   ...multerConfig,
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ['imgage/jpeg', 'image/png'];
+    const allowedTypes = ['image/jpeg', 'image/png'];
     if (allowedTypes.includes(file.mimetype)) {
       return cb(null, true);
     }
@@ -14,14 +17,33 @@ const uploadFile = multer({
 }).single('photo');
 
 class PhotoController {
-  async store(req, res) {
-    return uploadFile(req, res, (err) => {
+  store(req, res) {
+    return uploadFile(req, res, async (err) => {
       if (err) {
         return res.status(400).json({
           errors: [err.code],
         });
       }
-      return res.status(200).json(req.file);
+
+      if (!req.file) {
+        return res.status(400).json({
+          erros: ['No file sent on the photo field'],
+        });
+      }
+      try {
+        const { originalname, filename } = req.file;
+
+        const photo = await Photo.create({
+          original_name: originalname,
+          file_name: filename,
+          security_id: req.body.security_id,
+        });
+        return res.status(200).json(photo);
+      } catch (e) {
+        return res.status(400).json({
+          erros: ['Field security_id leads to no security'],
+        });
+      }
     });
   }
 }
