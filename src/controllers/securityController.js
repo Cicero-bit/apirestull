@@ -39,7 +39,14 @@ class SecurityController {
   }
 
   async delete(req, res) {
-    return res.status(200).json('inside security');
+    try {
+      const deleted = await Security.destroy();
+      return res.status(200).json(deleted);
+    } catch (e) {
+      return res.status(400).json({
+        erros: [e.erros],
+      });
+    }
   }
 }
 
