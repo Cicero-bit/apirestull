@@ -4,13 +4,13 @@ import { resolve } from 'path';
 
 dotevn.config();
 
-import './src/database';
+import './database';
 import express from 'express';
-import homeRoutes from './src/routes/homeR';
-import userRoutes from './src/routes/userRoutes';
-import tokenRoutes from './src/routes/tokenRoutes';
-import securityRoutes from './src/routes/securityRoutes';
-import photoRoutes from './src/routes/photoRoutes';
+import homeRoutes from './routes/homeR';
+import userRoutes from './routes/userRoutes';
+import tokenRoutes from './routes/tokenRoutes';
+import securityRoutes from './routes/securityRoutes';
+import photoRoutes from './routes/photoRoutes';
 
 class App {
   constructor() {
