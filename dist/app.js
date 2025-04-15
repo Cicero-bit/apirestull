@@ -1,6 +1,9 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }/* eslint-disable import/no-extraneous-dependencies */
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }/* eslint-disable func-names */
+/* eslint-disable object-shorthand */
+/* eslint-disable import/no-extraneous-dependencies */
 var _dotenv = require('dotenv'); var _dotenv2 = _interopRequireDefault(_dotenv);
 var _path = require('path');
+var _cors = require('cors'); var _cors2 = _interopRequireDefault(_cors);
 
 _dotenv2.default.config();
 
@@ -12,6 +15,20 @@ var _tokenRoutes = require('./routes/tokenRoutes'); var _tokenRoutes2 = _interop
 var _securityRoutes = require('./routes/securityRoutes'); var _securityRoutes2 = _interopRequireDefault(_securityRoutes);
 var _photoRoutes = require('./routes/photoRoutes'); var _photoRoutes2 = _interopRequireDefault(_photoRoutes);
 
+const whiteList = [
+  'http://localhost:3000',
+];
+
+const corsOptions = {
+  origin: function (origin, cb) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      cb(null, true);
+    } else {
+      cb(new Error(`Cors not allowed for this domain ${origin}`), false);
+    }
+  },
+};
+
 class App {
   constructor() {
     this.app = _express2.default.call(void 0, );
@@ -22,7 +39,8 @@ class App {
   middlewares() {
     this.app.use(_express2.default.urlencoded({ extended: true }));
     this.app.use(_express2.default.json());
-    this.app.use(_express2.default.static(_path.resolve.call(void 0, __dirname, 'uploads')));
+    this.app.use(_cors2.default.call(void 0, corsOptions));
+    this.app.use(_express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads')));
   }
 
   routes() {
