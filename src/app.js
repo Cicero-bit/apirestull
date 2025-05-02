@@ -14,9 +14,10 @@ import userRoutes from './routes/userRoutes';
 import tokenRoutes from './routes/tokenRoutes';
 import securityRoutes from './routes/securityRoutes';
 import photoRoutes from './routes/photoRoutes';
+import mailRoutes from './routes/mailRoutes';
 
 const whiteList = [
-  'http://localhost:3000',
+  'http://localhost:5173',
 ];
 
 const corsOptions = {
@@ -49,6 +50,7 @@ class App {
     this.app.use('/login/', tokenRoutes);
     this.app.use('/security/', securityRoutes);
     this.app.use('/photos/', photoRoutes);
+    this.app.use('/mail', mailRoutes);
   }
 }
 

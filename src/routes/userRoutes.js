@@ -4,8 +4,7 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-// router.get('/', userController.index); // let it off
-
+router.get('/', userController.index); // let it off
 router.post('/', userController.create);
 router.get('/:id', loginRequired, userController.show); // modify the id in the red
 router.put('/', loginRequired, userController.update);
