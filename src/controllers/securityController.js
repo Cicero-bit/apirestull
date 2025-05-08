@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import Security from '../models/security';
-import Photo from '../models/profilePic';
+import Photo from '../models/files';
 
 class SecurityController {
   async create(req, res) {

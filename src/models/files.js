@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Sequelize, { Model } from 'sequelize';
 
-export default class ProfilePics extends Model {
+export default class Files extends Model {
   static init(sequelize) {
     super.init(
       {

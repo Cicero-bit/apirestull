@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Sequelize, { Model } from 'sequelize';
-// gross error here wtf
-export default class Security extends Model {
+
+export default class Enterprise extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -15,27 +15,35 @@ export default class Security extends Model {
             },
           },
         },
-        surname: {
+        cpfCnpj: {
           type: Sequelize.STRING,
           allowNull: false,
+          unique: {
+            msg: 'CPF/CPNJ allready in use',
+          },
+          validate: {
+            len: [11, 18],
+            msg: 'Invalid CPF/CPNJ',
+          },
+          field: 'cpf_cnpj',
         },
-        phone: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        height: {
+        adminUser: {
           type: Sequelize.INTEGER,
+          field: 'admin_user',
           allowNull: false,
         },
-        weight: {
-          type: Sequelize.FLOAT,
-          allowNull: true,
+        banner: {
+          type: Sequelize.INTEGER,
+        },
+        active: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
         },
       },
 
       {
         sequelize,
-        tableName: 'securitys',
+        tableName: 'enterprises',
       },
     );
 
@@ -43,6 +51,6 @@ export default class Security extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Files, { foreignKey: 'security_id' });
+    this.belongsTo(models.User, { foreignKey: 'adminUser', as: 'admin' });
   }
 }

@@ -2,9 +2,10 @@ import { Sequelize } from 'sequelize';
 import databaseconfig from '../config/database';
 import User from '../models/user';
 import Security from '../models/security';
-import ProfilePics from '../models/profilePic';
+import Files from '../models/files';
+import Enterprise from '../models/enterprise';
 
-const models = [User, Security, ProfilePics];
+const models = [User, Security, Files, Enterprise];
 
 const connection = new Sequelize(databaseconfig);
 

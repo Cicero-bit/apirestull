@@ -3,7 +3,7 @@
 import multer from 'multer';
 
 import multerConfig from '../config/multerConfig';
-import Photo from '../models/profilePic';
+import Photo from '../models/files';
 
 const uploadFile = multer({
   ...multerConfig,
