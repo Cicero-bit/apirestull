@@ -21,14 +21,31 @@ export default class Security extends Model {
         },
         phone: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         height: {
           type: Sequelize.INTEGER,
-          allowNull: false,
+          allowNull: true,
         },
         weight: {
           type: Sequelize.FLOAT,
+          allowNull: true,
+        },
+        photo: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+        },
+        userId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          field: 'user_id',
+        },
+        area: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+        },
+        verified: {
+          type: Sequelize.BOOLEAN,
           allowNull: true,
         },
       },
@@ -44,5 +61,12 @@ export default class Security extends Model {
 
   static associate(models) {
     this.hasMany(models.Files, { foreignKey: 'security_id' });
+    this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    this.hasOne(models.Options, { foreignKey: 'area' });
+    this.belongsToMany(models.Skill, {
+      through: 'security_skills',
+      foreignKey: 'security_id',
+      as: 'skills',
+    });
   }
 }

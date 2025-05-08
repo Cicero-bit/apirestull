@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 import Sequelize, { Model } from 'sequelize';
 
-export default class Files extends Model {
+export default class Skill extends Model {
   static init(sequelize) {
     super.init(
       {
-        originalName: {
+        category: {
           type: Sequelize.STRING,
           defaultValue: '',
           validate: {
@@ -14,7 +14,7 @@ export default class Files extends Model {
             },
           },
         },
-        fileName: {
+        value: {
           type: Sequelize.STRING,
           defaultValue: '',
           validate: {
@@ -23,26 +23,10 @@ export default class Files extends Model {
             },
           },
         },
-        type: {
-          type: Sequelize.STRING,
-          defaultValue: 'profilePic',
-          allowNull: false,
-        },
-        url: {
-          type: Sequelize.VIRTUAL,
-          get() {
-            return `${process.env.APP_URL}/imgs/${this.getDataValue('file_name')}`;
-          },
-        },
-        securityId: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-          field: 'security_id',
-        },
       },
       {
         sequelize,
-        tableName: 'files',
+        tableName: 'options',
       },
     );
 
@@ -50,6 +34,10 @@ export default class Files extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Security, { foreignKey: 'security_id' });
+    this.belongsToMany(models.Security, {
+      through: 'security_skills',
+      foreignKey: 'skill_id',
+      as: 'securities',
+    });
   }
 }
