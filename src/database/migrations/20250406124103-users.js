@@ -37,6 +37,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
+      role: {
+        type: Sequelize.ENUM('security', 'enterprise'),
+        allowNull: false,
+      },
     });
   },
 

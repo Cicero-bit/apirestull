@@ -14,3 +14,5 @@ const connection = new Sequelize(databaseconfig);
 
 models.forEach((model) => model.init(connection));
 models.forEach((model) => model.associate && model.associate(connection.models));
+
+export default connection;

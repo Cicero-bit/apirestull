@@ -47,6 +47,14 @@ export default class Security extends Model {
         verified: {
           type: Sequelize.BOOLEAN,
           allowNull: true,
+          defaultValue: false,
+        },
+        cpf: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          unique: {
+            msg: 'Err: cpf allready in use',
+          },
         },
       },
 
@@ -61,8 +69,12 @@ export default class Security extends Model {
 
   static associate(models) {
     this.hasMany(models.Files, { foreignKey: 'security_id' });
-    this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-    this.hasOne(models.Options, { foreignKey: 'area' });
+    this.belongsTo(models.User, {
+      foreignKey: 'userId', as: 'user', onDelete: 'CASCADE', onUpdate: 'CASCADE',
+    });
+    this.belongsTo(models.Options, {
+      foreignKey: 'area',
+    });
     this.belongsToMany(models.Skill, {
       through: 'security_skills',
       foreignKey: 'security_id',

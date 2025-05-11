@@ -16,6 +16,13 @@ export default class User extends Model {
             },
           },
         },
+        role: {
+          type: Sequelize.ENUM('security', 'enterprise'),
+          allowNull: {
+            args: false,
+            msg: 'Err: role must be set',
+          },
+        },
         email: {
           type: Sequelize.STRING,
           unique: {
@@ -66,5 +73,10 @@ export default class User extends Model {
 
   passwordVerify(password) {
     return bcrypt.compare(password, this.password_hash);
+  }
+
+  static associate(models) {
+    this.hasOne(models.Enterprise, { foreignKey: 'adminUser' });
+    this.hasOne(models.Security, { foreignKey: 'userId' });
   }
 }

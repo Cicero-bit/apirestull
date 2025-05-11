@@ -22,8 +22,10 @@ export default class Enterprise extends Model {
             msg: 'CPF/CPNJ allready in use',
           },
           validate: {
-            len: [11, 18],
-            msg: 'Invalid CPF/CPNJ',
+            len: {
+              args: [11, 18],
+              msg: 'Invalid CPF/CPNPJ',
+            },
           },
           field: 'cpf_cnpj',
         },
@@ -34,6 +36,7 @@ export default class Enterprise extends Model {
         },
         banner: {
           type: Sequelize.INTEGER,
+          allowNull: true,
         },
         active: {
           type: Sequelize.BOOLEAN,

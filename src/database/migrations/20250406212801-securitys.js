@@ -18,15 +18,15 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       height: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       weight: {
         type: Sequelize.FLOAT,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -34,6 +34,14 @@ module.exports = {
       },
       updated_at: {
         type: Sequelize.DATE,
+        allowNull: false,
+      },
+      area: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      cpf: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
     });
