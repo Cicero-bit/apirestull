@@ -36,10 +36,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      area: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
       cpf: {
         type: Sequelize.STRING,
         allowNull: false,

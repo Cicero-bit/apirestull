@@ -69,11 +69,17 @@ export default class Security extends Model {
 
   static associate(models) {
     this.hasMany(models.Files, { foreignKey: 'security_id' });
-    this.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'user', onDelete: 'CASCADE', onUpdate: 'CASCADE',
+    this.hasMany(models.SecurityAreaPivot, { foreignKey: 'security_id' });
+    this.belongsToMany(models.Area, {
+      through: 'SecurityAreaPivot',
+      foreignKey: 'security_id',
+      otherKey: 'area_id',
     });
-    this.belongsTo(models.Options, {
-      foreignKey: 'area',
+    this.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
     this.belongsToMany(models.Skill, {
       through: 'security_skills',

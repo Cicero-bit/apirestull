@@ -17,7 +17,7 @@ import photoRoutes from './routes/photoRoutes';
 import mailRoutes from './routes/mailRoutes';
 
 const whiteList = [
-  'http://localhost:5173',
+  'http://localhost:5000',
 ];
 
 const corsOptions = {
